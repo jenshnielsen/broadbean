@@ -1,0 +1,69 @@
+broadbean.tests package
+=======================
+
+Submodules
+----------
+
+broadbean.tests.conftest module
+-------------------------------
+
+.. automodule:: broadbean.tests.conftest
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+broadbean.tests.test\_awgfilegeneration module
+----------------------------------------------
+
+.. automodule:: broadbean.tests.test_awgfilegeneration
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+broadbean.tests.test\_blueprint module
+--------------------------------------
+
+.. automodule:: broadbean.tests.test_blueprint
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+broadbean.tests.test\_element module
+------------------------------------
+
+.. automodule:: broadbean.tests.test_element
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+broadbean.tests.test\_forging module
+------------------------------------
+
+.. automodule:: broadbean.tests.test_forging
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+broadbean.tests.test\_sequence module
+-------------------------------------
+
+.. automodule:: broadbean.tests.test_sequence
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+broadbean.tests.test\_subsequences module
+-----------------------------------------
+
+.. automodule:: broadbean.tests.test_subsequences
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: broadbean.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

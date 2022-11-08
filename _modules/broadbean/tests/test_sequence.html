@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>broadbean.tests.test_sequence &mdash; broadbean 0.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> broadbean
+          </a>
+              <div class="version">
+                0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/generated/broadbean.html">broadbean package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../start/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Broadbean Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes/index.html">Changelogs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">broadbean</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">broadbean.tests.test_sequence</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for broadbean.tests.test_sequence</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Test suite for the Sequence Object of the broadband package</span>
+<span class="c1">#</span>
+<span class="c1"># Horribly unfinished.</span>
+<span class="c1">#</span>
+<span class="c1"># The strategy is the same as for the BluePrint test suite: we cook up some</span>
+<span class="c1"># sequences and try to break them. If we can&#39;t, everything is prolly OK</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">broadbean</span> <span class="k">as</span> <span class="nn">bb</span>
+<span class="kn">from</span> <span class="nn">broadbean.sequence</span> <span class="kn">import</span> <span class="p">(</span><span class="n">SequenceCompatibilityError</span><span class="p">,</span>
+                                <span class="n">SequenceConsistencyError</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">broadbean.tools</span> <span class="kn">import</span> <span class="n">makeVaryingSequence</span><span class="p">,</span> <span class="n">repeatAndVarySequence</span>
+
+<span class="n">ramp</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">PulseAtoms</span><span class="o">.</span><span class="n">ramp</span>
+<span class="n">sine</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">PulseAtoms</span><span class="o">.</span><span class="n">sine</span>
+
+
+<div class="viewcode-block" id="protosequence1"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.protosequence1">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">protosequence1</span><span class="p">():</span>
+
+    <span class="n">SR</span> <span class="o">=</span> <span class="mf">1e9</span>
+
+    <span class="n">th</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mf">10e-6</span><span class="p">)</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mf">5e-6</span><span class="p">)</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mf">10e-6</span><span class="p">)</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">wiggle1</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">wiggle1</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mf">4e6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">25e-6</span><span class="p">)</span>
+    <span class="n">wiggle1</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">wiggle2</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">wiggle2</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mf">8e6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">25e-6</span><span class="p">)</span>
+    <span class="n">wiggle2</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">elem1</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+    <span class="n">elem1</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">th</span><span class="p">)</span>
+    <span class="n">elem1</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">wiggle1</span><span class="p">)</span>
+
+    <span class="n">elem2</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+    <span class="n">elem2</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">th</span><span class="p">)</span>
+    <span class="n">elem2</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">wiggle2</span><span class="p">)</span>
+
+    <span class="n">seq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">elem1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">elem2</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingTriggerWait</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingEventJumpTarget</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingGoto</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingTriggerWait</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingEventJumpTarget</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingGoto</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">seq</span></div>
+
+
+<div class="viewcode-block" id="protosequence2"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.protosequence2">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">protosequence2</span><span class="p">():</span>
+
+    <span class="n">SR</span> <span class="o">=</span> <span class="mf">1e9</span>
+
+    <span class="n">saw</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">saw</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">100e-3</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">11e-6</span><span class="p">)</span>
+    <span class="n">saw</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;waituntil&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mf">25e-6</span><span class="p">))</span>
+    <span class="n">saw</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">lineandwiggle</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">lineandwiggle</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;waituntil&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mf">11e-6</span><span class="p">))</span>
+    <span class="n">lineandwiggle</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mf">10e6</span><span class="p">,</span> <span class="mf">50e-6</span><span class="p">,</span> <span class="mf">10e-6</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">14e-6</span><span class="p">)</span>
+    <span class="n">lineandwiggle</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">elem1</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+    <span class="n">elem1</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">saw</span><span class="p">)</span>
+    <span class="n">elem1</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">lineandwiggle</span><span class="p">)</span>
+
+    <span class="n">elem2</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+    <span class="n">elem2</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">saw</span><span class="p">)</span>
+    <span class="n">elem2</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lineandwiggle</span><span class="p">)</span>
+
+    <span class="n">seq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">elem1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">elem2</span><span class="p">)</span>
+
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingTriggerWait</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingTriggerWait</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingNumberOfRepetitions</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingEventJumpTarget</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingEventJumpTarget</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingGoto</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingGoto</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">seq</span></div>
+
+
+<div class="viewcode-block" id="badseq_missing_pos"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.badseq_missing_pos">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">badseq_missing_pos</span><span class="p">():</span>
+
+    <span class="n">SR</span> <span class="o">=</span> <span class="mf">1e9</span>
+
+    <span class="n">saw</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">saw</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">100e-3</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">11e-6</span><span class="p">)</span>
+    <span class="n">saw</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;waituntil&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mf">25e-6</span><span class="p">))</span>
+    <span class="n">saw</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">lineandwiggle</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">lineandwiggle</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;waituntil&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mf">11e-6</span><span class="p">))</span>
+    <span class="n">lineandwiggle</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mf">10e6</span><span class="p">,</span> <span class="mf">50e-6</span><span class="p">,</span> <span class="mf">10e-6</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">14e-6</span><span class="p">)</span>
+    <span class="n">lineandwiggle</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">elem1</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+    <span class="n">elem1</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">saw</span><span class="p">)</span>
+    <span class="n">elem1</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">lineandwiggle</span><span class="p">)</span>
+
+    <span class="n">elem2</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+    <span class="n">elem2</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">saw</span><span class="p">)</span>
+    <span class="n">elem2</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lineandwiggle</span><span class="p">)</span>
+
+    <span class="n">seq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">elem1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">elem2</span><span class="p">)</span>  <span class="c1"># &lt;--- A gap in the sequence</span>
+
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingTriggerWait</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingNumberOfRepetitions</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingGoto</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSequencingGoto</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># seq.setSequenceSettings(1, 0, 2, 0, 2)</span>
+    <span class="c1"># seq.setSequenceSettings(2, 1, 1, 0, 1)</span>
+
+    <span class="k">return</span> <span class="n">seq</span></div>
+
+
+<div class="viewcode-block" id="squarepulse_baseelem"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.squarepulse_baseelem">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">squarepulse_baseelem</span><span class="p">():</span>
+
+    <span class="n">SR</span> <span class="o">=</span> <span class="mf">1e6</span>
+
+    <span class="n">basebp</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">basebp</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">0.5e-4</span><span class="p">)</span>
+    <span class="n">basebp</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;varyme&#39;</span><span class="p">)</span>
+    <span class="n">basebp</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;waituntil&#39;</span><span class="p">,</span> <span class="mf">5e-4</span><span class="p">)</span>
+    <span class="n">basebp</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">baseelem</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+    <span class="n">baseelem</span><span class="o">.</span><span class="n">addBluePrint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">basebp</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">baseelem</span></div>
+
+
+<span class="c1">##################################################</span>
+<span class="c1"># INIT and dunderdunder part</span>
+
+
+<div class="viewcode-block" id="test_copy_positively"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_copy_positively">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;attribute&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;_data&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;_sequencing&#39;</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;_awgspecs&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;_meta&#39;</span><span class="p">)])</span>
+<span class="k">def</span> <span class="nf">test_copy_positively</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">attribute</span><span class="p">):</span>
+    <span class="n">new_seq</span> <span class="o">=</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">attr1</span> <span class="o">=</span> <span class="n">new_seq</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+    <span class="n">attr2</span> <span class="o">=</span> <span class="n">protosequence1</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">attr1</span> <span class="o">==</span> <span class="n">attr2</span></div>
+
+
+<div class="viewcode-block" id="test_copy_negatively_01"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_copy_negatively_01">[docs]</a><span class="k">def</span> <span class="nf">test_copy_negatively_01</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">new_seq</span> <span class="o">=</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">new_seq</span><span class="o">.</span><span class="n">setSequencingTriggerWait</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">new_seq</span><span class="o">.</span><span class="n">setSequencingNumberOfRepetitions</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">new_seq</span><span class="o">.</span><span class="n">setSequencingEventJumpTarget</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">new_seq</span><span class="o">.</span><span class="n">setSequencingGoto</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">new_seq</span> <span class="o">!=</span> <span class="n">protosequence1</span></div>
+
+
+<div class="viewcode-block" id="test_copy_negatively_02"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_copy_negatively_02">[docs]</a><span class="k">def</span> <span class="nf">test_copy_negatively_02</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">new_seq</span> <span class="o">=</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">new_seq</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">new_seq</span> <span class="o">!=</span> <span class="n">protosequence1</span></div>
+
+
+<div class="viewcode-block" id="test_copy_negatively_03"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_copy_negatively_03">[docs]</a><span class="k">def</span> <span class="nf">test_copy_negatively_03</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">new_seq</span> <span class="o">=</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">new_seq</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">changeArg</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sine&#39;</span><span class="p">,</span> <span class="s1">&#39;freq&#39;</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">new_seq</span> <span class="o">!=</span> <span class="n">protosequence1</span></div>
+
+
+<div class="viewcode-block" id="test_copy_and_eq"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_copy_and_eq">[docs]</a><span class="k">def</span> <span class="nf">test_copy_and_eq</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">new_seq</span> <span class="o">=</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">new_seq</span> <span class="o">==</span> <span class="n">protosequence1</span></div>
+
+
+<div class="viewcode-block" id="test_addition_fail_vrange"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_addition_fail_vrange">[docs]</a><span class="k">def</span> <span class="nf">test_addition_fail_vrange</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">protosequence2</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">SequenceCompatibilityError</span><span class="p">):</span>
+        <span class="n">protosequence1</span> <span class="o">+</span> <span class="n">protosequence2</span></div>
+
+
+<div class="viewcode-block" id="test_addition_fail_position"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_addition_fail_position">[docs]</a><span class="k">def</span> <span class="nf">test_addition_fail_position</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">badseq_missing_pos</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">SequenceConsistencyError</span><span class="p">):</span>
+        <span class="n">protosequence1</span> <span class="o">+</span> <span class="n">badseq_missing_pos</span></div>
+
+
+<div class="viewcode-block" id="test_addition_data"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_addition_data">[docs]</a><span class="k">def</span> <span class="nf">test_addition_data</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">protosequence2</span><span class="p">):</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">protosequence1</span> <span class="o">+</span> <span class="n">protosequence2</span>
+    <span class="n">expected_data</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                     <span class="mi">2</span><span class="p">:</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+                     <span class="mi">3</span><span class="p">:</span> <span class="n">protosequence2</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                     <span class="mi">4</span><span class="p">:</span> <span class="n">protosequence2</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="mi">2</span><span class="p">)}</span>
+    <span class="k">assert</span> <span class="n">newseq</span><span class="o">.</span><span class="n">_data</span> <span class="o">==</span> <span class="n">expected_data</span></div>
+
+
+<div class="viewcode-block" id="test_addition_sequencing1"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_addition_sequencing1">[docs]</a><span class="k">def</span> <span class="nf">test_addition_sequencing1</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">protosequence2</span><span class="p">):</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">protosequence1</span> <span class="o">+</span> <span class="n">protosequence2</span>
+    <span class="n">expected_sequencing</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;twait&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;nrep&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_target&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                               <span class="s1">&#39;goto&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_input&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+                           <span class="mi">2</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;twait&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;nrep&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_target&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                               <span class="s1">&#39;goto&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_input&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+                           <span class="mi">3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;twait&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;nrep&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;jump_target&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                               <span class="s1">&#39;goto&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;jump_input&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+                           <span class="mi">4</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;twait&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;nrep&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_target&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                               <span class="s1">&#39;goto&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;jump_input&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span>
+    <span class="k">assert</span> <span class="n">newseq</span><span class="o">.</span><span class="n">_sequencing</span> <span class="o">==</span> <span class="n">expected_sequencing</span></div>
+
+
+<div class="viewcode-block" id="test_addition_sequencing2"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_addition_sequencing2">[docs]</a><span class="k">def</span> <span class="nf">test_addition_sequencing2</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">protosequence2</span><span class="p">):</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">protosequence2</span> <span class="o">+</span> <span class="n">protosequence1</span>
+    <span class="n">expected_sequencing</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;twait&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;nrep&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_target&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                               <span class="s1">&#39;goto&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;jump_input&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+                           <span class="mi">4</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;twait&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;nrep&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_target&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                               <span class="s1">&#39;goto&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;jump_input&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+                           <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;twait&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;nrep&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;jump_target&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                               <span class="s1">&#39;goto&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;jump_input&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+                           <span class="mi">2</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;twait&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;nrep&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_target&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                               <span class="s1">&#39;goto&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jump_input&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span>
+    <span class="k">assert</span> <span class="n">newseq</span><span class="o">.</span><span class="n">_sequencing</span> <span class="o">==</span> <span class="n">expected_sequencing</span></div>
+
+
+<div class="viewcode-block" id="test_addition_awgspecs"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_addition_awgspecs">[docs]</a><span class="k">def</span> <span class="nf">test_addition_awgspecs</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">protosequence2</span><span class="p">):</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelAmplitude</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">protosequence2</span><span class="o">.</span><span class="n">setChannelOffset</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">protosequence1</span> <span class="o">+</span> <span class="n">protosequence2</span>
+
+    <span class="k">assert</span> <span class="n">newseq</span><span class="o">.</span><span class="n">_awgspecs</span> <span class="o">==</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">_awgspecs</span></div>
+
+
+<div class="viewcode-block" id="test_addition_data_with_empty"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_addition_data_with_empty">[docs]</a><span class="k">def</span> <span class="nf">test_addition_data_with_empty</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+    <span class="n">newseq</span><span class="o">.</span><span class="n">_awgspecs</span> <span class="o">=</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">_awgspecs</span>
+
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">newseq</span> <span class="o">+</span> <span class="n">protosequence1</span>
+
+    <span class="k">assert</span> <span class="n">newseq</span><span class="o">.</span><span class="n">_data</span> <span class="o">==</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">_data</span></div>
+
+
+<div class="viewcode-block" id="test_add_subsequence_raises"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_add_subsequence_raises">[docs]</a><span class="k">def</span> <span class="nf">test_add_subsequence_raises</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">squarepulse_baseelem</span><span class="p">):</span>
+
+    <span class="c1"># raise if a non-Sequence object is added</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">protosequence1</span><span class="o">.</span><span class="n">addSubSequence</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">squarepulse_baseelem</span><span class="p">)</span>
+
+    <span class="n">seq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">squarepulse_baseelem</span><span class="p">)</span>
+    <span class="n">seq</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">squarepulse_baseelem</span><span class="o">.</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="n">mainseq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+    <span class="n">mainseq</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">seq</span><span class="o">.</span><span class="n">SR</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># raise if the subsequence sample rate does not match the main seq. SR</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">mainseq</span><span class="o">.</span><span class="n">addSubSequence</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+
+    <span class="n">mainseq</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">seq</span><span class="o">.</span><span class="n">SR</span><span class="p">)</span>
+    <span class="n">mainseq</span><span class="o">.</span><span class="n">addSubSequence</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+
+    <span class="n">doublemainseq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">()</span>
+    <span class="n">doublemainseq</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">seq</span><span class="o">.</span><span class="n">SR</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">doublemainseq</span><span class="o">.</span><span class="n">addSubSequence</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">mainseq</span><span class="p">)</span></div>
+
+<span class="c1">##################################################</span>
+<span class="c1"># AWG settings</span>
+
+
+<div class="viewcode-block" id="test_setSR"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_setSR">[docs]</a><span class="k">def</span> <span class="nf">test_setSR</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">protosequence1</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="mf">1.2e9</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">_awgspecs</span><span class="p">[</span><span class="s1">&#39;SR&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.2e9</span></div>
+
+
+<span class="c1">##################################################</span>
+<span class="c1"># Highest level sequence variers</span>
+
+<div class="viewcode-block" id="test_makeVaryingSequence_fail"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_makeVaryingSequence_fail">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;channels, names, args, iters&#39;</span><span class="p">,</span>
+                         <span class="p">[([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;varyme&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">]),</span>
+                          <span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;varyme&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">],</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)]),</span>
+                          <span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;varyme&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;crazyarg&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">])])</span>
+<span class="k">def</span> <span class="nf">test_makeVaryingSequence_fail</span><span class="p">(</span><span class="n">squarepulse_baseelem</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span>
+                                  <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">makeVaryingSequence</span><span class="p">(</span><span class="n">squarepulse_baseelem</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span>
+                            <span class="n">names</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_makeVaryingSequence"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_makeVaryingSequence">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;seqpos, argslist&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mf">5e-4</span><span class="p">,)]),</span>
+                                              <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,),</span> <span class="p">(</span><span class="mf">5e-4</span><span class="p">,)]),</span>
+                                              <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,),</span> <span class="p">(</span><span class="mf">5e-4</span><span class="p">,)])])</span>
+<span class="k">def</span> <span class="nf">test_makeVaryingSequence</span><span class="p">(</span><span class="n">squarepulse_baseelem</span><span class="p">,</span> <span class="n">seqpos</span><span class="p">,</span> <span class="n">argslist</span><span class="p">):</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;varyme&#39;</span><span class="p">,</span> <span class="s1">&#39;varyme&#39;</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="p">]</span>
+    <span class="n">iters</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">]]</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="n">makeVaryingSequence</span><span class="p">(</span><span class="n">squarepulse_baseelem</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span>
+                                   <span class="n">names</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">sequence</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">seqpos</span><span class="p">]</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;blueprint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">_argslist</span> <span class="o">==</span> <span class="n">argslist</span></div>
+
+
+<div class="viewcode-block" id="test_repeatAndVarySequence_length"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_repeatAndVarySequence_length">[docs]</a><span class="k">def</span> <span class="nf">test_repeatAndVarySequence_length</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">poss</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
+    <span class="n">iters</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">]]</span>
+
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">repeatAndVarySequence</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span>
+                                   <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span>
+
+    <span class="n">expected_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">iters</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">protosequence1</span><span class="o">.</span><span class="n">length_sequenceelements</span>
+
+    <span class="k">assert</span> <span class="n">newseq</span><span class="o">.</span><span class="n">length_sequenceelements</span> <span class="o">==</span> <span class="n">expected_l</span></div>
+
+
+<div class="viewcode-block" id="test_repeatAndVarySequence_awgspecs"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_repeatAndVarySequence_awgspecs">[docs]</a><span class="k">def</span> <span class="nf">test_repeatAndVarySequence_awgspecs</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">poss</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;stop&#39;</span><span class="p">]</span>
+    <span class="n">iters</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]]</span>
+
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">repeatAndVarySequence</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span>
+                                   <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">newseq</span><span class="o">.</span><span class="n">_awgspecs</span> <span class="o">==</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">_awgspecs</span></div>
+
+
+<div class="viewcode-block" id="test_repeatAndVarySequence_fail_inputlength1"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_inputlength1">[docs]</a><span class="k">def</span> <span class="nf">test_repeatAndVarySequence_fail_inputlength1</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">poss</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
+    <span class="n">iters</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)]</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">repeatAndVarySequence</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span>
+                              <span class="n">channels</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_repeatAndVarySequence_fail_inputlength2"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_inputlength2">[docs]</a><span class="k">def</span> <span class="nf">test_repeatAndVarySequence_fail_inputlength2</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">):</span>
+    <span class="n">poss</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp&#39;</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="p">]</span>
+    <span class="n">iters</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">repeatAndVarySequence</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span>
+                              <span class="n">channels</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_repeatAndVarySequence_fail_consistency"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_consistency">[docs]</a><span class="k">def</span> <span class="nf">test_repeatAndVarySequence_fail_consistency</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span>
+                                                <span class="n">squarepulse_baseelem</span><span class="p">):</span>
+
+    <span class="n">protosequence1</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">squarepulse_baseelem</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">protosequence1</span><span class="o">.</span><span class="n">checkConsistency</span><span class="p">())</span>
+
+    <span class="n">poss</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
+    <span class="n">iters</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)]</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">SequenceConsistencyError</span><span class="p">):</span>
+        <span class="n">repeatAndVarySequence</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span>
+                              <span class="n">channels</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_repeatAndVarySequence_same_elements"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_repeatAndVarySequence_same_elements">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_repeatAndVarySequence_same_elements</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="n">poss</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
+    <span class="n">iters</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)]</span>
+
+    <span class="n">newseq</span> <span class="o">=</span> <span class="n">repeatAndVarySequence</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span>
+                                   <span class="n">names</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">newseq</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span> <span class="o">==</span> <span class="n">protosequence1</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_write_read_sequence"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_sequence.test_write_read_sequence">[docs]</a><span class="k">def</span> <span class="nf">test_write_read_sequence</span><span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">protosequence2</span><span class="p">,</span> <span class="n">tmp_path</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;Sequence&quot;</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="p">(</span><span class="n">protosequence1</span><span class="p">,</span> <span class="n">protosequence2</span><span class="p">):</span>
+        <span class="n">seq</span><span class="o">.</span><span class="n">write_to_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;Seq.json&quot;</span><span class="p">))</span>
+        <span class="n">readbackseq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="o">.</span><span class="n">init_from_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;Seq.json&quot;</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="n">seq</span> <span class="o">==</span> <span class="n">readbackseq</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Microsoft Quantum.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

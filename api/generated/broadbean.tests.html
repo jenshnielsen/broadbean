@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>broadbean.tests package &mdash; broadbean 0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Getting Started" href="../../start/index.html" />
+    <link rel="prev" title="broadbean package" href="broadbean.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> broadbean
+          </a>
+              <div class="version">
+                0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="broadbean.html">broadbean package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="broadbean.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">broadbean.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-broadbean.tests.conftest">broadbean.tests.conftest module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-broadbean.tests.test_awgfilegeneration">broadbean.tests.test_awgfilegeneration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-broadbean.tests.test_blueprint">broadbean.tests.test_blueprint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-broadbean.tests.test_element">broadbean.tests.test_element module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-broadbean.tests.test_forging">broadbean.tests.test_forging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-broadbean.tests.test_sequence">broadbean.tests.test_sequence module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-broadbean.tests.test_subsequences">broadbean.tests.test_subsequences module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-broadbean.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#module-broadbean.blueprint">broadbean.blueprint module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#module-broadbean.broadbean">broadbean.broadbean module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#module-broadbean.element">broadbean.element module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#module-broadbean.plotting">broadbean.plotting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#module-broadbean.ripasso">broadbean.ripasso module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#module-broadbean.sequence">broadbean.sequence module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#module-broadbean.tools">broadbean.tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="broadbean.html#module-broadbean">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../start/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Broadbean Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes/index.html">Changelogs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">broadbean</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="broadbean.html">broadbean package</a></li>
+      <li class="breadcrumb-item active">broadbean.tests package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/generated/broadbean.tests.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="broadbean-tests-package">
+<h1>broadbean.tests package<a class="headerlink" href="#broadbean-tests-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-broadbean.tests.conftest">
+<span id="broadbean-tests-conftest-module"></span><h2>broadbean.tests.conftest module<a class="headerlink" href="#module-broadbean.tests.conftest" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-broadbean.tests.test_awgfilegeneration">
+<span id="broadbean-tests-test-awgfilegeneration-module"></span><h2>broadbean.tests.test_awgfilegeneration module<a class="headerlink" href="#module-broadbean.tests.test_awgfilegeneration" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_awgfilegeneration.protosequence1">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_awgfilegeneration.</span></span><span class="sig-name descname"><span class="pre">protosequence1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_awgfilegeneration.html#protosequence1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_awgfilegeneration.protosequence1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_awgfilegeneration.should_raise_sequencingerror">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_awgfilegeneration.</span></span><span class="sig-name descname"><span class="pre">should_raise_sequencingerror</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wait</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nrep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jump_to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_elms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_awgfilegeneration.html#should_raise_sequencingerror"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_awgfilegeneration.should_raise_sequencingerror" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to tell us whether a SequencingError should be raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_awgfilegeneration.test_awg_output">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_awgfilegeneration.</span></span><span class="sig-name descname"><span class="pre">test_awg_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_awgfilegeneration.html#test_awg_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_awgfilegeneration.test_awg_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_awgfilegeneration.test_awg_output_validations">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_awgfilegeneration.</span></span><span class="sig-name descname"><span class="pre">test_awg_output_validations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/broadbean/tests/test_awgfilegeneration.html#test_awg_output_validations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_awgfilegeneration.test_awg_output_validations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-broadbean.tests.test_blueprint">
+<span id="broadbean-tests-test-blueprint-module"></span><h2>broadbean.tests.test_blueprint module<a class="headerlink" href="#module-broadbean.tests.test_blueprint" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.blueprint_nasty">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">blueprint_nasty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#blueprint_nasty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.blueprint_nasty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a nasty blueprint trying to hit some corner cases</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.blueprint_tophat">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">blueprint_tophat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#blueprint_tophat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.blueprint_tophat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a blueprint consisting of three slopeless ramps forming something
+similar to a tophat</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_add_two_different">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_add_two_different</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blueprint_nasty</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_add_two_different"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_add_two_different" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_add_two_identical">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_add_two_identical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_add_two_identical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_add_two_identical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_bare_init">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_bare_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virgin_blueprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_bare_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_bare_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_basename">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_basename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_basename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_basename_input">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_basename_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notstring</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_basename_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_basename_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_creation">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_creation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virgin_blueprint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_creation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_creation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_description">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_description</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_nasty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_make_names_unique0">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_make_names_unique0</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_make_names_unique0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_make_names_unique0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_make_names_unique1">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_make_names_unique1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_make_names_unique1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_make_names_unique1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_make_names_unique2">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_make_names_unique2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_make_names_unique2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_make_names_unique2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_make_names_unique3">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_make_names_unique3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_make_names_unique3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_make_names_unique3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_make_names_unique4">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_make_names_unique4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_make_names_unique4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_make_names_unique4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_make_names_unique_input">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_make_names_unique_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_make_names_unique_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_make_names_unique_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_not_equal">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_not_equal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_not_equal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_not_equal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_changeargument">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_changeargument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argslist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_changeargument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_changeargument" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_changeargument_replaceeverywhere">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_changeargument_replaceeverywhere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argslist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_changeargument_replaceeverywhere"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_changeargument_replaceeverywhere" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_changeargument_valueerror">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_changeargument_valueerror</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_changeargument_valueerror"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_changeargument_valueerror" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_changeduration">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_changeduration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newdur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">durslist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_changeduration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_changeduration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_changeduration_everywhere">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_changeduration_everywhere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_changeduration_everywhere"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_changeduration_everywhere" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_changeduration_valueerror">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_changeduration_valueerror</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newdur</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_changeduration_valueerror"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_changeduration_valueerror" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_copy">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_init">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_insert_argslist">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_insert_argslist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argslist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_insert_argslist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_insert_argslist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_insert_funlist">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_insert_funlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funlist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_insert_funlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_insert_funlist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_insert_namelist">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_insert_namelist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namelist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_insert_namelist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_insert_namelist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_remove_namelist">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_remove_namelist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_remove_namelist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_remove_namelist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.test_tophat_remove_segmentmarker">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">test_tophat_remove_segmentmarker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#test_tophat_remove_segmentmarker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.test_tophat_remove_segmentmarker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_blueprint.virgin_blueprint">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_blueprint.</span></span><span class="sig-name descname"><span class="pre">virgin_blueprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_blueprint.html#virgin_blueprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_blueprint.virgin_blueprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an empty instance of BluePrint</p>
+</dd></dl>
+
+</section>
+<section id="module-broadbean.tests.test_element">
+<span id="broadbean-tests-test-element-module"></span><h2>broadbean.tests.test_element module<a class="headerlink" href="#module-broadbean.tests.test_element" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.blueprint_tophat">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">blueprint_tophat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#blueprint_tophat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.blueprint_tophat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a blueprint consisting of three slopeless ramps forming something
+similar to a tophat</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.mixed_element">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">mixed_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#mixed_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.mixed_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>An element with blueprints and arrays</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_addArray">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_addArray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_addArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_addArray" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_applyDelays">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_applyDelays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixed_element</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_applyDelays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_applyDelays" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_bare_init">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_bare_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_bare_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_bare_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_copy">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_equality_false">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_equality_false</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_equality_false"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_equality_false" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_equality_true">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_equality_true</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_equality_true"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_equality_true" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_input_fail1">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_input_fail1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">improper_bp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_input_fail1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_input_fail1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_invalid_durations">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_invalid_durations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_invalid_durations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_invalid_durations" title="Permalink to this definition">¶</a></dt>
+<dd><p>There are soooo many ways to have invalid durations, here
+we hit a couple of them</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_points">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_element.test_write_read_element">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">test_write_read_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blueprint_tophat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmp_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_element.html#test_write_read_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_element.test_write_read_element" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-broadbean.tests.test_forging">
+<span id="broadbean-tests-test-forging-module"></span><h2>broadbean.tests.test_forging module<a class="headerlink" href="#module-broadbean.tests.test_forging" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_forging.sequence_maker">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_forging.</span></span><span class="sig-name descname"><span class="pre">sequence_maker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_forging.html#sequence_maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_forging.sequence_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a function returning a sequence with some top hat pulses</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_forging.test_apply_filters_in_forging">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_forging.</span></span><span class="sig-name descname"><span class="pre">test_apply_filters_in_forging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence_maker</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_forging.html#test_apply_filters_in_forging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_forging.test_apply_filters_in_forging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign some filters, forge and assert that they were applied</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_forging.test_correct_marker_times">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_forging.</span></span><span class="sig-name descname"><span class="pre">test_correct_marker_times</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_forging.html#test_correct_marker_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_forging.test_correct_marker_times" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_forging.test_correct_periods">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_forging.</span></span><span class="sig-name descname"><span class="pre">test_correct_periods</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_forging.html#test_correct_periods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_forging.test_correct_periods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_forging.test_too_short_durations_rejected">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_forging.</span></span><span class="sig-name descname"><span class="pre">test_too_short_durations_rejected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/broadbean/tests/test_forging.html#test_too_short_durations_rejected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_forging.test_too_short_durations_rejected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-broadbean.tests.test_sequence">
+<span id="broadbean-tests-test-sequence-module"></span><h2>broadbean.tests.test_sequence module<a class="headerlink" href="#module-broadbean.tests.test_sequence" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.badseq_missing_pos">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">badseq_missing_pos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#badseq_missing_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.badseq_missing_pos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.protosequence1">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">protosequence1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#protosequence1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.protosequence1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.protosequence2">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">protosequence2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#protosequence2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.protosequence2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.squarepulse_baseelem">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">squarepulse_baseelem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#squarepulse_baseelem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.squarepulse_baseelem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_add_subsequence_raises">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_add_subsequence_raises</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squarepulse_baseelem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_add_subsequence_raises"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_add_subsequence_raises" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_addition_awgspecs">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_addition_awgspecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protosequence2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_addition_awgspecs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_addition_awgspecs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_addition_data">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_addition_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protosequence2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_addition_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_addition_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_addition_data_with_empty">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_addition_data_with_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_addition_data_with_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_addition_data_with_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_addition_fail_position">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_addition_fail_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">badseq_missing_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_addition_fail_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_addition_fail_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_addition_fail_vrange">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_addition_fail_vrange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protosequence2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_addition_fail_vrange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_addition_fail_vrange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_addition_sequencing1">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_addition_sequencing1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protosequence2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_addition_sequencing1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_addition_sequencing1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_addition_sequencing2">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_addition_sequencing2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protosequence2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_addition_sequencing2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_addition_sequencing2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_copy_and_eq">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_copy_and_eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_copy_and_eq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_copy_and_eq" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_copy_negatively_01">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_copy_negatively_01</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_copy_negatively_01"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_copy_negatively_01" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_copy_negatively_02">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_copy_negatively_02</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_copy_negatively_02"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_copy_negatively_02" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_copy_negatively_03">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_copy_negatively_03</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_copy_negatively_03"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_copy_negatively_03" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_copy_positively">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_copy_positively</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_copy_positively"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_copy_positively" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_makeVaryingSequence">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_makeVaryingSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">squarepulse_baseelem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqpos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argslist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_makeVaryingSequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_makeVaryingSequence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_makeVaryingSequence_fail">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_makeVaryingSequence_fail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">squarepulse_baseelem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_makeVaryingSequence_fail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_makeVaryingSequence_fail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_repeatAndVarySequence_awgspecs">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_repeatAndVarySequence_awgspecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_repeatAndVarySequence_awgspecs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_repeatAndVarySequence_awgspecs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_consistency">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_repeatAndVarySequence_fail_consistency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squarepulse_baseelem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_repeatAndVarySequence_fail_consistency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_consistency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_inputlength1">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_repeatAndVarySequence_fail_inputlength1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_repeatAndVarySequence_fail_inputlength1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_inputlength1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_inputlength2">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_repeatAndVarySequence_fail_inputlength2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_repeatAndVarySequence_fail_inputlength2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_repeatAndVarySequence_fail_inputlength2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_repeatAndVarySequence_length">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_repeatAndVarySequence_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_repeatAndVarySequence_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_repeatAndVarySequence_length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_repeatAndVarySequence_same_elements">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_repeatAndVarySequence_same_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_repeatAndVarySequence_same_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_repeatAndVarySequence_same_elements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_setSR">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_setSR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_setSR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_setSR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_sequence.test_write_read_sequence">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_sequence.</span></span><span class="sig-name descname"><span class="pre">test_write_read_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protosequence1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protosequence2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmp_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_sequence.html#test_write_read_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_sequence.test_write_read_sequence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-broadbean.tests.test_subsequences">
+<span id="broadbean-tests-test-subsequences-module"></span><h2>broadbean.tests.test_subsequences module<a class="headerlink" href="#module-broadbean.tests.test_subsequences" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_subsequences.bp_element">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_subsequences.</span></span><span class="sig-name descname"><span class="pre">bp_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_subsequences.html#bp_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_subsequences.bp_element" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_subsequences.master_sequence">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_subsequences.</span></span><span class="sig-name descname"><span class="pre">master_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subseq1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subseq2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bp_element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_element</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_subsequences.html#master_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_subsequences.master_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>A sequence with subsequences and elements, some elements
+have ararys, some have blueprint. We try to aim wide.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_subsequences.noise_element">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_subsequences.</span></span><span class="sig-name descname"><span class="pre">noise_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_subsequences.html#noise_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_subsequences.noise_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>An element consisting of arrays of noise</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_subsequences.subseq1">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_subsequences.</span></span><span class="sig-name descname"><span class="pre">subseq1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_subsequences.html#subseq1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_subsequences.subseq1" title="Permalink to this definition">¶</a></dt>
+<dd><p>A small sequence meant to be used as a subsequence</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_subsequences.subseq2">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_subsequences.</span></span><span class="sig-name descname"><span class="pre">subseq2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_subsequences.html#subseq2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_subsequences.subseq2" title="Permalink to this definition">¶</a></dt>
+<dd><p>A small sequence meant to be used as a subsequence</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="broadbean.tests.test_subsequences.test_forge">
+<span class="sig-prename descclassname"><span class="pre">broadbean.tests.test_subsequences.</span></span><span class="sig-name descname"><span class="pre">test_forge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master_sequence</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/broadbean/tests/test_subsequences.html#test_forge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#broadbean.tests.test_subsequences.test_forge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-broadbean.tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-broadbean.tests" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="broadbean.html" class="btn btn-neutral float-left" title="broadbean package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../start/index.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Microsoft Quantum.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

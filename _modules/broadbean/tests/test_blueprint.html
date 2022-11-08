@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>broadbean.tests.test_blueprint &mdash; broadbean 0.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> broadbean
+          </a>
+              <div class="version">
+                0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/generated/broadbean.html">broadbean package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../start/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Broadbean Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes/index.html">Changelogs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">broadbean</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">broadbean.tests.test_blueprint</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for broadbean.tests.test_blueprint</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Test suite for the BluePrint Object of the broadband package</span>
+<span class="c1">#</span>
+<span class="c1"># It is impossible to make a complete test of all the many possible blueprints.</span>
+<span class="c1"># The strategy is to make a few representative (we hope!) blueprints and then</span>
+<span class="c1"># assert that hitting them with all their methods results in new blueprints</span>
+<span class="c1"># with the desired data attributes (the desired state)</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">broadbean</span> <span class="k">as</span> <span class="nn">bb</span>
+
+<span class="n">ramp</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">PulseAtoms</span><span class="o">.</span><span class="n">ramp</span>
+<span class="n">sine</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">PulseAtoms</span><span class="o">.</span><span class="n">sine</span>
+
+<span class="n">tophat_SR</span> <span class="o">=</span> <span class="mi">2000</span>
+
+
+<div class="viewcode-block" id="virgin_blueprint"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.virgin_blueprint">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">virgin_blueprint</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return an empty instance of BluePrint</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="blueprint_tophat"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.blueprint_tophat">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">blueprint_tophat</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a blueprint consisting of three slopeless ramps forming something</span>
+<span class="sd">    similar to a tophat</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">tophat_SR</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">th</span></div>
+
+
+<div class="viewcode-block" id="blueprint_nasty"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.blueprint_nasty">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">blueprint_nasty</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a nasty blueprint trying to hit some corner cases</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">()</span>
+    <span class="n">ns</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;waituntil&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+    <span class="n">ns</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">ns</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;waituntil&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,))</span>
+    <span class="n">ns</span><span class="o">.</span><span class="n">setSR</span><span class="p">(</span><span class="n">tophat_SR</span><span class="p">)</span>
+
+    <span class="n">ns</span><span class="o">.</span><span class="n">setSegmentMarker</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ns</span><span class="o">.</span><span class="n">setSegmentMarker</span><span class="p">(</span><span class="s1">&#39;waituntil2&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">ns</span><span class="o">.</span><span class="n">marker1</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)]</span>
+    <span class="n">ns</span><span class="o">.</span><span class="n">marker2</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">ns</span></div>
+
+<span class="c1">##################################################</span>
+<span class="c1"># TEST STATIC METHODS</span>
+
+
+<div class="viewcode-block" id="test_basename"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_basename">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;inp, outp&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;test3&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;2test3&#39;</span><span class="p">,</span> <span class="s1">&#39;2test&#39;</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;123_&#39;</span><span class="p">,</span> <span class="s1">&#39;123_&#39;</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;123_4&#39;</span><span class="p">,</span> <span class="s1">&#39;123_&#39;</span><span class="p">)])</span>
+<span class="k">def</span> <span class="nf">test_basename</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="o">.</span><span class="n">_basename</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">==</span> <span class="n">outp</span></div>
+
+
+<div class="viewcode-block" id="test_basename_input"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_basename_input">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;notstring&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="p">[],</span> <span class="p">(),</span>
+                                        <span class="p">(</span><span class="s1">&#39;name1&#39;</span><span class="p">,),</span>
+                                        <span class="p">[</span><span class="s1">&#39;name2&#39;</span><span class="p">])])</span>
+<span class="k">def</span> <span class="nf">test_basename_input</span><span class="p">(</span><span class="n">notstring</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="o">.</span><span class="n">_basename</span><span class="p">(</span><span class="n">notstring</span><span class="p">)</span></div>
+
+
+<span class="n">namelistsinout</span> <span class="o">=</span> <span class="p">[([</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;name2&#39;</span><span class="p">]),</span>
+                  <span class="p">([</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;sine&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;sine&#39;</span><span class="p">],</span>
+                   <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;sine&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;sine2&#39;</span><span class="p">]),</span>
+                  <span class="p">([</span><span class="s1">&#39;name2&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;name2&#39;</span><span class="p">]),</span>
+                  <span class="p">([</span><span class="s1">&#39;n3&#39;</span><span class="p">,</span> <span class="s1">&#39;n2&#39;</span><span class="p">,</span> <span class="s1">&#39;n1&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;n2&#39;</span><span class="p">,</span> <span class="s1">&#39;n3&#39;</span><span class="p">]),</span>
+                  <span class="p">([</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;2n&#39;</span><span class="p">,</span> <span class="s1">&#39;ss1&#39;</span><span class="p">,</span> <span class="s1">&#39;ss3&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;2n&#39;</span><span class="p">,</span> <span class="s1">&#39;ss&#39;</span><span class="p">,</span> <span class="s1">&#39;ss2&#39;</span><span class="p">])]</span>
+
+
+<div class="viewcode-block" id="test_make_names_unique0"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_make_names_unique0">[docs]</a><span class="k">def</span> <span class="nf">test_make_names_unique0</span><span class="p">():</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">outp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="o">.</span><span class="n">_make_names_unique</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">==</span> <span class="n">outp</span></div>
+
+
+<div class="viewcode-block" id="test_make_names_unique1"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_make_names_unique1">[docs]</a><span class="k">def</span> <span class="nf">test_make_names_unique1</span><span class="p">():</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">outp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="o">.</span><span class="n">_make_names_unique</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">==</span> <span class="n">outp</span></div>
+
+
+<div class="viewcode-block" id="test_make_names_unique2"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_make_names_unique2">[docs]</a><span class="k">def</span> <span class="nf">test_make_names_unique2</span><span class="p">():</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">outp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="o">.</span><span class="n">_make_names_unique</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">==</span> <span class="n">outp</span></div>
+
+
+<div class="viewcode-block" id="test_make_names_unique3"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_make_names_unique3">[docs]</a><span class="k">def</span> <span class="nf">test_make_names_unique3</span><span class="p">():</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">outp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="o">.</span><span class="n">_make_names_unique</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">==</span> <span class="n">outp</span></div>
+
+
+<div class="viewcode-block" id="test_make_names_unique4"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_make_names_unique4">[docs]</a><span class="k">def</span> <span class="nf">test_make_names_unique4</span><span class="p">():</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">outp</span> <span class="o">=</span> <span class="n">namelistsinout</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="o">.</span><span class="n">_make_names_unique</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">==</span> <span class="n">outp</span></div>
+
+
+<div class="viewcode-block" id="test_make_names_unique_input"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_make_names_unique_input">[docs]</a><span class="k">def</span> <span class="nf">test_make_names_unique_input</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="o">.</span><span class="n">_make_names_unique</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span></div>
+
+<span class="c1">##################################################</span>
+<span class="c1"># TEST BARE INITIALISATION</span>
+
+
+<div class="viewcode-block" id="test_creation"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_creation">[docs]</a><span class="k">def</span> <span class="nf">test_creation</span><span class="p">(</span><span class="n">virgin_blueprint</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">virgin_blueprint</span><span class="p">,</span> <span class="n">bb</span><span class="o">.</span><span class="n">BluePrint</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_bare_init"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_bare_init">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;attribute, expected&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;_funlist&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                                 <span class="p">(</span><span class="s1">&#39;_namelist&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                                 <span class="p">(</span><span class="s1">&#39;_argslist&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                                 <span class="p">(</span><span class="s1">&#39;_durslist&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                                 <span class="p">(</span><span class="s1">&#39;marker1&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                                 <span class="p">(</span><span class="s1">&#39;marker2&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                                 <span class="p">(</span><span class="s1">&#39;_segmark1&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                                 <span class="p">(</span><span class="s1">&#39;_segmark2&#39;</span><span class="p">,</span> <span class="p">[])])</span>
+<span class="k">def</span> <span class="nf">test_bare_init</span><span class="p">(</span><span class="n">virgin_blueprint</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">virgin_blueprint</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span></div>
+
+<span class="c1">##################################################</span>
+<span class="c1"># TEST WITH TOPHAT</span>
+
+
+<div class="viewcode-block" id="test_tophat_init"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_init">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;attribute, val&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;_funlist&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_namelist&#39;</span><span class="p">,</span>
+                                             <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp3&#39;</span><span class="p">]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_argslist&#39;</span><span class="p">,</span>
+                                             <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_durslist&#39;</span><span class="p">,</span>
+                                             <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;marker1&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;marker2&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_segmark1&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_segmark2&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span><span class="o">*</span><span class="mi">3</span><span class="p">)])</span>
+<span class="k">def</span> <span class="nf">test_tophat_init</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span> <span class="o">==</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_copy"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_copy">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;attribute, val&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;_funlist&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_namelist&#39;</span><span class="p">,</span>
+                                             <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp3&#39;</span><span class="p">]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_argslist&#39;</span><span class="p">,</span>
+                                             <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_durslist&#39;</span><span class="p">,</span>
+                                             <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;marker1&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;marker2&#39;</span><span class="p">,</span> <span class="p">[]),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_segmark1&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span>
+                                            <span class="p">(</span><span class="s1">&#39;_segmark2&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span><span class="o">*</span><span class="mi">3</span><span class="p">)])</span>
+<span class="k">def</span> <span class="nf">test_tophat_copy</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="n">new_bp</span> <span class="o">=</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">new_bp</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span> <span class="o">==</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_changeduration"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_changeduration">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;name, newdur, durslist&#39;</span><span class="p">,</span>
+                         <span class="p">[(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp3&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])])</span>
+<span class="k">def</span> <span class="nf">test_tophat_changeduration</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">newdur</span><span class="p">,</span> <span class="n">durslist</span><span class="p">):</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">changeDuration</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">newdur</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_durslist</span> <span class="o">==</span> <span class="n">durslist</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_changeduration_everywhere"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_changeduration_everywhere">[docs]</a><span class="k">def</span> <span class="nf">test_tophat_changeduration_everywhere</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">):</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">changeDuration</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">replaceeverywhere</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_durslist</span> <span class="o">==</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_changeduration_valueerror"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_changeduration_valueerror">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;newdur&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">tophat_SR</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="kc">None</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_tophat_changeduration_valueerror</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">newdur</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">changeDuration</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="n">newdur</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_changeargument"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_changeargument">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;name, arg, newval, argslist&#39;</span><span class="p">,</span>
+                         <span class="p">[(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])])</span>
+<span class="k">def</span> <span class="nf">test_tophat_changeargument</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">argslist</span><span class="p">):</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">changeArg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">newval</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_argslist</span> <span class="o">==</span> <span class="n">argslist</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_changeargument_replaceeverywhere"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_changeargument_replaceeverywhere">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;name, arg, newval, argslist&#39;</span><span class="p">,</span>
+                         <span class="p">[(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                          <span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)])])</span>
+<span class="k">def</span> <span class="nf">test_tophat_changeargument_replaceeverywhere</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                                                 <span class="n">arg</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">argslist</span><span class="p">):</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">changeArg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">replaceeverywhere</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_argslist</span> <span class="o">==</span> <span class="n">argslist</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_changeargument_valueerror"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_changeargument_valueerror">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;name, arg&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;freq&#39;</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="s1">&#39;ramp4&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="k">def</span> <span class="nf">test_tophat_changeargument_valueerror</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">changeArg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_insert_funlist"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_insert_funlist">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;pos, func, funlist&#39;</span><span class="p">,</span>
+                         <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="p">[</span><span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="p">[</span><span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">sine</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="p">[</span><span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="n">ramp</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="p">[</span><span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">sine</span><span class="p">])])</span>
+<span class="k">def</span> <span class="nf">test_tophat_insert_funlist</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">funlist</span><span class="p">):</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_funlist</span> <span class="o">==</span> <span class="n">funlist</span></div>
+
+
+<span class="n">newargs</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="test_tophat_insert_argslist"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_insert_argslist">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;pos, argslist&#39;</span><span class="p">,</span>
+                         <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">newargs</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+                          <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">newargs</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">newargs</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])])</span>
+<span class="k">def</span> <span class="nf">test_tophat_insert_argslist</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">argslist</span><span class="p">):</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">newargs</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_argslist</span> <span class="o">==</span> <span class="n">argslist</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_insert_namelist"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_insert_namelist">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;pos, name, namelist&#39;</span><span class="p">,</span>
+                         <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;myramp&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;myramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp3&#39;</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;myramp&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp3&#39;</span><span class="p">,</span> <span class="s1">&#39;myramp&#39;</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp3&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp4&#39;</span><span class="p">])])</span>
+<span class="k">def</span> <span class="nf">test_tophat_insert_namelist</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">namelist</span><span class="p">):</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="n">newargs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_namelist</span> <span class="o">==</span> <span class="n">namelist</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_remove_namelist"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_remove_namelist">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp3&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp4&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_tophat_remove_namelist</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_namelist</span><span class="p">:</span>
+        <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">removeSegment</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">_namelist</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+            <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">removeSegment</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_tophat_remove_segmentmarker"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_tophat_remove_segmentmarker">[docs]</a><span class="k">def</span> <span class="nf">test_tophat_remove_segmentmarker</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">):</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">removeSegmentMarker</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">removeSegmentMarker</span><span class="p">(</span><span class="s1">&#39;no such name&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Adding and removing should be equivalent to NOOP</span>
+    <span class="n">bpc</span> <span class="o">=</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">setSegmentMarker</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">removeSegmentMarker</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">bpc</span> <span class="o">==</span> <span class="n">blueprint_tophat</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+        <span class="n">bpc</span><span class="o">.</span><span class="n">removeSegmentMarker</span><span class="p">(</span><span class="s1">&#39;no such name&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<span class="c1">##################################################</span>
+<span class="c1"># DUNDERDUNDER</span>
+
+
+<div class="viewcode-block" id="test_not_equal"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_not_equal">[docs]</a><span class="k">def</span> <span class="nf">test_not_equal</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">):</span>
+    <span class="n">bpc</span> <span class="o">=</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">bpc</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span>
+
+    <span class="n">bpc</span><span class="o">.</span><span class="n">insertSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ramp</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">bpc</span> <span class="o">==</span> <span class="n">blueprint_tophat</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
+
+    <span class="n">bpc</span> <span class="o">=</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">marker1</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)]</span>
+    <span class="n">bpc</span><span class="o">.</span><span class="n">marker2</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)]</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">bpc</span> <span class="o">==</span> <span class="n">blueprint_tophat</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
+
+    <span class="n">bpc</span> <span class="o">=</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">bpc</span><span class="o">.</span><span class="n">setSegmentMarker</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">bpc</span> <span class="o">==</span> <span class="n">blueprint_tophat</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
+
+    <span class="n">bpc</span> <span class="o">=</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">bpc</span><span class="o">.</span><span class="n">marker2</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)]</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">bpc</span> <span class="o">==</span> <span class="n">blueprint_tophat</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
+
+    <span class="n">bpc</span> <span class="o">=</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">setSegmentMarker</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">bpc</span> <span class="o">==</span> <span class="n">blueprint_tophat</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="test_add_two_identical"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_add_two_identical">[docs]</a><span class="k">def</span> <span class="nf">test_add_two_identical</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">):</span>
+    <span class="n">bp</span> <span class="o">=</span> <span class="n">blueprint_tophat</span>
+    <span class="n">bpc</span> <span class="o">=</span> <span class="n">bp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">new_bp1</span> <span class="o">=</span> <span class="n">bpc</span> <span class="o">+</span> <span class="n">bp</span>
+    <span class="n">new_bp2</span> <span class="o">=</span> <span class="n">bp</span> <span class="o">+</span> <span class="n">bpc</span>
+
+    <span class="k">assert</span> <span class="n">new_bp1</span> <span class="o">==</span> <span class="n">new_bp2</span>
+    <span class="k">assert</span> <span class="n">new_bp1</span><span class="o">.</span><span class="n">_namelist</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp3&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp4&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp5&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;ramp6&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">new_bp1</span><span class="o">.</span><span class="n">_argslist</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">_argslist</span> <span class="o">+</span> <span class="n">bp</span><span class="o">.</span><span class="n">_argslist</span>
+    <span class="k">assert</span> <span class="n">new_bp1</span><span class="o">.</span><span class="n">_funlist</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">_funlist</span> <span class="o">+</span> <span class="n">bp</span><span class="o">.</span><span class="n">_funlist</span>
+    <span class="k">assert</span> <span class="n">new_bp1</span><span class="o">.</span><span class="n">_segmark1</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">_segmark1</span> <span class="o">+</span> <span class="n">bp</span><span class="o">.</span><span class="n">_segmark1</span>
+    <span class="k">assert</span> <span class="n">new_bp1</span><span class="o">.</span><span class="n">_segmark2</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">_segmark2</span> <span class="o">+</span> <span class="n">bp</span><span class="o">.</span><span class="n">_segmark2</span>
+    <span class="k">assert</span> <span class="n">new_bp1</span><span class="o">.</span><span class="n">_durslist</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">_durslist</span> <span class="o">+</span> <span class="n">bp</span><span class="o">.</span><span class="n">_durslist</span>
+    <span class="k">assert</span> <span class="n">new_bp1</span><span class="o">.</span><span class="n">marker1</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">marker1</span> <span class="o">+</span> <span class="n">bp</span><span class="o">.</span><span class="n">marker1</span>
+    <span class="k">assert</span> <span class="n">new_bp1</span><span class="o">.</span><span class="n">marker2</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">marker2</span> <span class="o">+</span> <span class="n">bp</span><span class="o">.</span><span class="n">marker2</span></div>
+
+
+<div class="viewcode-block" id="test_add_two_different"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_add_two_different">[docs]</a><span class="k">def</span> <span class="nf">test_add_two_different</span><span class="p">(</span><span class="n">blueprint_tophat</span><span class="p">,</span> <span class="n">blueprint_nasty</span><span class="p">):</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">blueprint_tophat</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="n">blueprint_nasty</span>
+
+    <span class="n">bp</span> <span class="o">=</span> <span class="n">th</span> <span class="o">+</span> <span class="n">ns</span>
+
+    <span class="k">assert</span> <span class="n">bp</span><span class="o">.</span><span class="n">_namelist</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp2&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp3&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;waituntil&#39;</span><span class="p">,</span> <span class="s1">&#39;ramp4&#39;</span><span class="p">,</span> <span class="s1">&#39;waituntil2&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">bp</span><span class="o">.</span><span class="n">_argslist</span> <span class="o">==</span> <span class="n">th</span><span class="o">.</span><span class="n">_argslist</span> <span class="o">+</span> <span class="n">ns</span><span class="o">.</span><span class="n">_argslist</span>
+    <span class="k">assert</span> <span class="n">bp</span><span class="o">.</span><span class="n">_funlist</span> <span class="o">==</span> <span class="n">th</span><span class="o">.</span><span class="n">_funlist</span> <span class="o">+</span> <span class="n">ns</span><span class="o">.</span><span class="n">_funlist</span>
+    <span class="k">assert</span> <span class="n">bp</span><span class="o">.</span><span class="n">_segmark1</span> <span class="o">==</span> <span class="n">th</span><span class="o">.</span><span class="n">_segmark1</span> <span class="o">+</span> <span class="n">ns</span><span class="o">.</span><span class="n">_segmark1</span>
+    <span class="k">assert</span> <span class="n">bp</span><span class="o">.</span><span class="n">_segmark2</span> <span class="o">==</span> <span class="n">th</span><span class="o">.</span><span class="n">_segmark2</span> <span class="o">+</span> <span class="n">ns</span><span class="o">.</span><span class="n">_segmark2</span>
+    <span class="k">assert</span> <span class="n">bp</span><span class="o">.</span><span class="n">_durslist</span> <span class="o">==</span> <span class="n">th</span><span class="o">.</span><span class="n">_durslist</span> <span class="o">+</span> <span class="n">ns</span><span class="o">.</span><span class="n">_durslist</span>
+    <span class="k">assert</span> <span class="n">bp</span><span class="o">.</span><span class="n">marker1</span> <span class="o">==</span> <span class="n">th</span><span class="o">.</span><span class="n">marker1</span> <span class="o">+</span> <span class="n">ns</span><span class="o">.</span><span class="n">marker1</span>
+    <span class="k">assert</span> <span class="n">bp</span><span class="o">.</span><span class="n">marker2</span> <span class="o">==</span> <span class="n">th</span><span class="o">.</span><span class="n">marker2</span> <span class="o">+</span> <span class="n">ns</span><span class="o">.</span><span class="n">marker2</span></div>
+
+
+<span class="c1">##################################################</span>
+<span class="c1"># MISC</span>
+
+
+<div class="viewcode-block" id="test_description"><a class="viewcode-back" href="../../../api/generated/broadbean.tests.html#broadbean.tests.test_blueprint.test_description">[docs]</a><span class="k">def</span> <span class="nf">test_description</span><span class="p">(</span><span class="n">blueprint_nasty</span><span class="p">,</span> <span class="n">blueprint_tophat</span><span class="p">):</span>
+    <span class="n">desc1</span> <span class="o">=</span> <span class="n">blueprint_nasty</span><span class="o">.</span><span class="n">description</span>
+    <span class="n">desc2</span> <span class="o">=</span> <span class="n">blueprint_tophat</span><span class="o">.</span><span class="n">description</span>
+
+    <span class="n">exp_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;marker1_abs&#39;</span><span class="p">,</span> <span class="s1">&#39;marker1_rel&#39;</span><span class="p">,</span> <span class="s1">&#39;marker2_abs&#39;</span><span class="p">,</span> <span class="s1">&#39;marker2_rel&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;segment_01&#39;</span><span class="p">,</span> <span class="s1">&#39;segment_02&#39;</span><span class="p">,</span> <span class="s1">&#39;segment_03&#39;</span><span class="p">]</span>
+
+    <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">desc1</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">exp_keys</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">desc2</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">exp_keys</span><span class="p">)</span></div>
+
+<span class="c1"># More to come...</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Microsoft Quantum.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
